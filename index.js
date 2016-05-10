@@ -21,7 +21,20 @@ app.get('/callback', function(req, res) {
 	console.log('----weixin callback -----')
 	var code = req.query.code;
 	console.log('code:'+code);
-	res.redirect('http://jy02739244-wechatoauth.daoapp.io/a.html');
+	client.getAccessToken(code, function (err, result) {
+		if(err){
+			console.log(err);
+		}
+		console.log(result)
+		var accessToken = result.data.access_token;
+		var openid = result.data.openid;
+		client.getUser(openid, function (err, result) {
+			console.log('use weixin api get user: '+ err)
+			console.log(result)
+			res.redirect('http://jy02739244-wechatoauth.daoapp.io/a.html');
+		});
+	});
+	
 });
 var port = (process.env.PORT || 80);
 app.listen(port);
