@@ -12,7 +12,7 @@ var client = new OAuth(app_id, app_secret);
 var app=express();
 app.use(express.static('.'));
 app.get('/', function(req, res) {
-	var url = client.getAuthorizeURLForWebsite('http://jy02739244-wechatoauth.daoapp.io/callback','','snsapi_userinfo');
+	var url = client.getAuthorizeURL('http://jy02739244-wechatoauth.daoapp.io/callback','','snsapi_userinfo');
 	console.log(url);
 	res.redirect(url);  
 });
